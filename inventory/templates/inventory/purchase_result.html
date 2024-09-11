@@ -1,0 +1,24 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div class="bg-secondary text-center">
+    <br>
+    <br>
+    <h1 class="text-light"><u>PURCHASE RESULT</u></h1>
+    <ul class="text-light">
+        {% for purchase in purchases %}
+            <li>{{ purchase.product_name}} - {{ purchase.quantity}} item ___Total: P{{ purchase.cost }}</li>
+        {% endfor %}
+    </ul>
+    <h2 class="text-light mb-12">Total Cost: ${{ total_cost }}</h2>
+    <p style="margin-top: 200px; margin-bottom: 0;">
+        <a href="{% url 'purchase_product' %}"><button class="bg-primary" type="submit">Back</button></a>
+        <a href="{% url 'dashboard' %}"><button class="mb-3 bg-primary" type="submit">Dashboard</button></a>
+    </p>
+</div>
+{% endblock %}
+
+
+
+
+
+

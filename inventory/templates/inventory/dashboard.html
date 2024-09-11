@@ -1,0 +1,100 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block content %}
+
+<div style="background-color: rgb(34, 29, 29); box-shadow: lightsteelblue;margin-left: 12px; margin-right: 12px; border-radius: 7px;   border-bottom-width: 1px;border-top-width: 2px; border-right-width: 2px; border-left-width: 2px;border-style:groove; border-color: rgb(27, 27, 27);">
+    <!-- First row in the website --> 
+    <br>
+    <!-- Alert message -->
+        {% if messages %}
+            <div id="alert-message" class="alert alert-success alert-dismissible fade show text-light centered-alert text-center"   role="alert" style="background-color: rgb(85, 93, 230); display: inline-block; margin-left: 35%;">
+            <i class="fa fa-info-circle text-light" style="font-size:40px;"></i>
+            {% for message in messages %}
+                <b>{{ message }}</b>
+            {% endfor %}
+            </div>
+        {% endif %}
+    <!-- End Alert -->
+    <div class="row " style="margin-left: 20px; margin-right: 70px; margin-bottom:0%; padding-bottom: 0%; margin-top: 0px;">
+        <div class="col-sm-2">
+            
+        </div>
+        <div class="col-sm-1">
+            <a href="{% url 'transactions' %}">
+            <div class="dashboard-section" style="background-color: rgb(59, 59, 59); border-bottom-width: 0px;border-top-width: 4px; border-right-width: 1px; border-left-width: 2px;border-style:groove; border-color: rgb(47, 45, 45); padding-top: 16px; padding-bottom: 5px; padding-left: 5px; padding-right: 3px;">
+                <h6 style="color: rgb(235, 228, 228);"><i>Purchase <br> History</i></h6>
+            </div>
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <a href="{% url 'list_of_all_products' %}">
+            <div class="dashboard-section" style="background-color: rgb(59, 59, 59); border-bottom-width: 0px;border-top-width: 4px; border-right-width: 1px; border-left-width: 2px;border-style:groove; border-color: rgb(47, 45, 45); padding-top: 1px; padding-bottom: 2px; padding-left: 3px;">
+                <br>
+                <h6 style="color: rgb(235, 228, 228);"><i>Total Products</i></h6>
+                <h6 style="color: rgb(235, 228, 228);">{{ total_item }}</h6>
+            </div>
+            </a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{% url 'purchase_product' %}">
+            <div class="dashboard-section hover-text-primary" style="background-color: rgb(59, 59, 59); border-bottom-width: 0px;border-top-width: 4px; border-right-width: 1px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45);font-size: 18px; padding-top: 2px; padding-bottom: 10px; text-decoration-color: blue;">
+                <h2 style="color: rgb(235, 228, 228);"><u><em>GO <br>PURCHASE</em></u></h2>
+            </div>
+            </a>
+        </div>
+        <div class="col-sm-2">
+            <div class="dashboard-section total-sale" style="background-color: rgb(59, 59, 59); border-bottom-width: 0px;border-top-width: 4px; border-right-width: 2px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45);padding-top: 16px; padding-bottom: 10px; padding-left: 3pxq;">
+                <h6 style="color: rgb(235, 228, 228);"><i>Total Sale: </i></h6>
+                <h6 style="color: rgb(235, 228, 228);">&#x20B1;{{ total_sale }}</h6>
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <a href="{% url 'suppliers' %}">
+            <div class="dashboard-section" style="background-color: rgb(59, 59, 59); border-bottom-width: 0px;border-top-width: 4px; border-right-width: 2px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45); padding-top: 15px; padding-bottom: 5px; padding-left: 8px; padding-right:5px;">
+                <h6 style="color: rgb(235, 228, 228);"><i>Suplliers <br>{{ total_supplier }}</i></h6>
+            </div>
+            </a>
+        </div>
+        <div class="col-sm-1">
+            
+        </div>
+    </div> 
+    <!-- End First row -->
+</div>
+ <!-- Charts and Transactions -->
+<div style="background-color: rgb(30, 25, 25); border-style: double; border-top-width: 3px ;margin-top: 5px; border-top-right-radius: 15px; border-top-left-radius:15px;  border-bottom-width: 2px;border-top-width: 2px; border-right-width: 1px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45);">
+<!--<h3 class="text-center" style="color: rgb(235, 228, 228);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inventory Status</h3>-->
+ <div class="row">
+    <div class="col-md-7">
+        <!-- Line Chart -->
+        <div class="chart" style="height: 500px;">
+            <div id="line-chart" class="chart-inner" style="border-style: double; border-top-width: 3px ;margin-top: 8px; border-top-right-radius: 10px; border-top-left-radius:10px; border-bottom-width: 1px;border-right-width: 1px; border-left-width: 2px;border-style:groove; border-color: rgb(45, 45, 45);">
+                {{ line_graph|safe }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <!-- Bar Chart -->
+        <div class="chart" style="height: 200px;">
+            <div id="bar-chart" class="chart-inner" style="border-style: double; border-top-width: 3px ;margin-top: 8px; border-top-right-radius: 10px; border-top-left-radius:10px; border-bottom-width: 1px;border-top-width: 4px; border-right-width: 2px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45);">
+                {{ graph|safe }}
+            </div>
+        </div>
+        <!-- Pie Chart -->
+        <div class="chart" style="height: 200px;">
+            <div id="pie-chart" class="chart-inner" style="border-style: double; border-top-width: 3px ;margin-top: 8px; border-top-right-radius: 10px; border-top-left-radius:10px;  border-bottom-width: 1px;border-top-width: 4px; border-right-width: 2px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45);">
+                {{ pie_graph|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}
+
+

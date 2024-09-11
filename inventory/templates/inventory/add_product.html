@@ -1,0 +1,9 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+    <a href="{% url 'list_of_all_products' %}">Back to Product List</a>
+{% endblock %}

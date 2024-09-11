@@ -1,0 +1,31 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 text-light">
+            <a href="{% url 'single_supplier_background_profile' suppliers.id %}"><img style="height: 300px; width: 650px;" src="{{suppliers.background_imageURL}}" alt=""></a>
+            <a href="{% url 'single_supplier_profile_pictures' suppliers.id %}"><img style="height: 85px; width: 90px; margin-top: -120px; border-radius: 55px;" src=" {{suppliers.profile_imageURL}}" alt=""></a>
+            <br>
+            <h1 style="margin-top: -21px; margin-left: 2px;">{{suppliers.supplierName}}</h1> <br>
+
+            <h5><u>{{suppliers.supplierName}}'s info</u></h5>
+            <h6 class="ml-1">Email: {{suppliers.email}}</h6>
+            <h6 class="ml-1">Address: {{suppliers.address}}</h6>
+            <h6 class="ml-1">Phone: {{suppliers.phone}}</h6>
+            <h6 class="ml-1">Country: {{suppliers.country}}</h6>
+            <a href=""><button type="submit">Contact supplier</button></a>
+        </div>
+        <div class="col-md-6 text-light">
+            <h2>{{suppliers.supplierName}} items</h2> <br>
+            {% for item in item %}
+                <h2 style=" color: azure;background-color: rgb(87, 180, 64); display: inline-block;">{{item}}</h2>
+            {% endfor %} 
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+

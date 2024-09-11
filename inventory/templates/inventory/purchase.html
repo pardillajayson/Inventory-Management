@@ -1,0 +1,73 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/purchase.css' %}">
+{% block content %}
+<h1 class="text-light">
+    <a href="{% url 'dashboard' %}"><button class="mb-3 bg-primary" type="submit"><h4>Home</h4></button></a>
+    <b class="bg-primary text-center bg-primary" style="margin-left: 300px;">Enter products buy by customer</b>
+</h1> 
+<form method="post" class="purchase-form bg-dark" style="justify-content: center; text-align: center;">
+    {% csrf_token %}
+    <div id="formContainer" style="width: 1350px; background-color:darkcyan">
+        <!-- message -->
+        {% if messages %}
+        <div id="alert-message" class="alert alert-success alert-dismissible fade show text-light centered-alert text-center" role="alert" style="background-color: rgb(238, 47, 14); display: inline-block;">
+            <i class="fa fa-info-circle text-light" style="font-size:30px;"></i>
+            {% for message in messages %}
+            <b>{{ message }}</b>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- End message-->
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="formset_form" style="width: 80%;">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+    </div>
+    <div id="empty_form_template" style="display: none;">
+        <div class="formset_form">
+            {{ formset.empty_form}}
+        </div>
+    </div>
+    <div style="background-color: darkcyan;">
+        <button type="button" id="add-form" class="add-btn hover-primary text-light" style="background-color: rgb(11, 185, 66); font-size: 20px; border-radius: 10px;">+</button>
+        <button type="submit" class="submit-btn text-light " style="background-color: rgb(28, 31, 221); font-size: 20px; border-radius: 10px;">Submit</button>
+    </div>
+</form>
+<div class="form-errors">
+    {% if formset.errors %}
+        <ul>
+            {% for form in formset %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }}: {{ field.errors }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("add-form").addEventListener("click", function() {
+            const formContainer = document.getElementById('formContainer');
+            const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+            const currentCount = parseInt(totalForms.value);
+            const emptyFormTemplate = document.getElementById('empty_form_template').innerHTML;
+
+            const newForm = document.createElement('div');
+            newForm.className = 'formset_form';
+            newForm.innerHTML = emptyFormTemplate.replace(/__prefix__/g, currentCount);
+
+            formContainer.appendChild(newForm);
+            totalForms.value = currentCount + 1;
+        });
+    });
+</script>
+
+<div style="margin-top: 190px;">
+</div>
+{% endblock %}

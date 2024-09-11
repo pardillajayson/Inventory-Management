@@ -1,0 +1,26 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<style>
+    .form input{
+    width: 500px;
+    height: 40px;
+    border-radius: 15px;
+    margin-top: 70px;
+}
+</style>
+<div class="bg-primary">
+    <div class="card card-body text-center" style="width:700px; margin-left: 24%;">
+        <h1><u>Adding Stock For {{ product.productName }}</u></h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form">
+                <h4 style="float: left; margin-top: 70px;">Quantity:</h4>
+                {{ form.quantity}}
+            </div>
+            <button style="padding: 5px 120px 5px 120px; margin-top: 18%; background-color: blue; border-radius: 14px;" type="submit"><b>Add</b></button>
+        </form>
+        <button style="width: 274px; margin-left: 192px; background-color: aqua; border-radius: 14px; padding-top: 5px; padding-bottom: 5px;" type="submit"><a href="{% url 'list_of_all_products' %}"><b>Cancel</b></a></button>
+        <br><br><br><br><br>
+    </div>
+</div>
+{% endblock %}

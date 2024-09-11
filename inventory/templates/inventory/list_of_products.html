@@ -1,0 +1,81 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/search_products.css' %}">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+{% block content %}
+<div style="background-color: rgb(30, 25, 25); padding: 20px;">
+    <a href="{% url 'dashboard' %}"><button style=" background-color: rgb(59, 59, 59); ;border-style: double; border-top-width: 3px ;margin-top: 5px; border-top-right-radius: 2px; border-top-left-radius:2px;  border-bottom-width: 2px;border-top-width: 2px; border-right-width: 1px; border-left-width: 1px;border-style:groove; border-color: rgb(47, 45, 45); color: aliceblue;">Back</button></a>
+    <h1 class="text-center text-light"><b>Database of Products</b></h1>
+    <hr class="text-light">
+    
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+
+        <div class="col-md-10">
+        <!-- Search form -->
+        <form class="example" action="" method="GET" style="text-align:end; margin-bottom: 20px; ">
+            <input style="width: 400px; height: 40px; border-radius: 15px; padding-left: 10px;" type="text" placeholder="Search Products.." name="search">
+            <button style="height: 40px; border-radius: 15px; margin-left: 10px;" type="submit"><i class="fa fa-search"></i></button>
+        </form>   
+
+        <!-- message -->
+        {% if messages %}
+        <div id="alert-message" class="alert alert-success alert-dismissible fade show text-light centered-alert text-center" role="alert" style="background-color: rgb(26, 74, 9); display: inline-block; margin-left: 35%;">
+            <i class="fa fa-info-circle text-light" style="font-size:25px;"></i>
+            {% for message in messages %}
+            <b>{{ message }}</b>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- End message-->
+
+        <!-- Product table -->
+        <table class="table product-table bg-light text-center" style="width: 100%; margin: auto;">
+            <thead style="background-color: rgb(59, 59, 59); color: aliceblue;">
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr style="background-color: hsl(180, 1%, 32%); color: aliceblue;">
+                            <td>
+                                <img style="width: 50px; height: 50px; object-fit: cover;" class="product-image" src="{{ product.imageURL }}" alt="{{ product.productName }}">
+                            </td>
+                            <td>{{ product.productName }}</td>
+                            <td>{{ product.quantityInStock }}</td>
+                            <td>${{ product.productPrice }}</td>
+                            <td style="width: 30px;">
+                                <a href="{% url 'add_quantity' product.id %}"><button style="background-color: rgb(133, 133, 201);" type="submit"><b class="text-light" style="font-size: 10px; border-radius: 15px;">Add Quantity</b></button></a>
+
+                                <a href="{% url 'delete_product' product.id %}"><button style="background-color: rgb(241, 160, 160);" type="submit"><b class="text-light" style="font-size: 15px; border-radius: 10px;">Remove</b></button></a>
+                            </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">No products found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(() => {
+    const alertMessage = document.getElementById('alert-message');
+    if (alertMessage) {
+        alertMessage.style.transition = 'opacity 0.5s';
+        alertMessage.style.opacity = '0';
+        setTimeout(() => alertMessage.remove(), 500); // Allow time for the transition
+    }
+    }, 3000);
+</script>
+{% endblock %}

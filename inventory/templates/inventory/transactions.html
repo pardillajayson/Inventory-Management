@@ -1,0 +1,41 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div style="background-color: rgb(34, 29, 29)">
+    <h1 class="text-center text-light" style="margin-bottom: 1%; margin-top: 10px;"><em><u>Purchase History</u></em></h1>
+    <button style="margin-left: 30px ;" type="button"><a href="{% url 'dashboard' %}"><b>Back</b></a></button>
+
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+            <!-- Search form -->
+            <form class="example" action="" method="GET" style="text-align:end; margin-bottom: 20px;">
+                <input style="width: 400px; height: 40px; border-radius: 15px; padding-left: 10px;  border-bottom-width: 0px;border-top-width: 4px; border-right-width: 1px; border-left-width: 2px;border-style:groove; border-color: rgb(47, 45, 45);" type="text" placeholder="Search Products.." name="search">
+                <button style="height: 40px; border-radius: 15px; margin-left: 10px;" type="submit"><i class="fa fa-search"></i></button>
+            </form> 
+            <table class="table product-table bg-light text-center" style="width: 95%; margin-left: 30px; animation: fadeInUp 1s ease-in-out;  border-bottom-width: 0px;border-top-width: 6px; border-right-width: 2px; border-left-width: 4px;border-style:groove; border-color: rgb(47, 45, 45);">
+                <thead style="background-color: rgb(59, 59, 59); color: aliceblue;">
+                    <tr style="text-align: center; ">
+                        <th><b>Time</b></th>
+                        <th><b>Product name</b></th>
+                        <th><b>Quantity</b></th>
+                        <th><b>amount</b></th>
+                    </tr>   
+                </thead>
+                <tbody class="bg-dark text-light">
+                    {% for transaction in transactions %}
+                        <tr  style="background-color: hsl(180, 1%, 32%); color: aliceblue;">
+                            <td><b>{{ transaction.time }}</b></td>
+                            <td><b>{{ transaction.product }}</b></td>
+                            <td><b>{{ transaction.quantity }}</b></td>
+                            <td><b>{{ transaction.amount }}</b></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1">
+        </div>
+    </div>
+</div>
+{% endblock %}

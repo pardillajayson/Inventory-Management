@@ -1,0 +1,31 @@
+{% extends 'inventory/base.html' %}
+{% block content %}
+<div style="background-color: rgb(54, 45, 45);">
+<h1 class="text-light text-center" style="text-shadow: 10px;"> All Suppliers</h1>
+<br>
+<table class="table product-table bg-light" style="width: 95%; margin-left: 30px; animation: fadeInUp 1s ease-in-out;" >
+    <thead style="background-color: #8530e5; border-color: blue; border-top-width: 5px;">
+        <tr style="background-color: rgb(59, 59, 59); color: aliceblue;">
+            <th> <h4>Supplier Name</h4> </th>
+            <th><h4></h4>  Email </h4></th>
+            <th> <h4> Address </h4></th>
+            <th> <h4>View </h4></th>
+        </tr> 
+    </thead>
+    <tbody class="bg-dark text-light">
+        {% for supplier in suppliers %}
+        <tr style=" background-color: rgb(106, 106, 106); color: rgb(255, 255, 255);">
+                <td><h5><img style="width: 50px; height: 50px; object-fit: cover; border-radius: 30px;" class="product-image" src="{{ supplier.profile_imageURL }}" alt="{{ product.productName }}">  {{ supplier }}</h5></td>
+                <td><h5>{{ supplier.email }}</h5></td>
+                <th><h5>{{ supplier.address }}</h5></th>
+                <td><a class="text-light" href="{% url 'single_supplier'  supplier.id %}"><button style="cursor: pointer;">View</button> </a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br><br><br><br><br><br><br><br><br><br>
+</div>
+{% endblock %}
+
+
+
